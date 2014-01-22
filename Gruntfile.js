@@ -89,12 +89,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-update-submodules');
 
   // Default and Build tasks
-  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
+  mainTasks = ['update_submodules', 'coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
   grunt.registerTask('default', mainTasks);
   grunt.registerTask('build', mainTasks.concat(['uglify']));
 
   // Travis CI task.
-  grunt.registerTask('travis', ['coffee', 'jasmine']);
+  grunt.registerTask('travis', ['update_submodules', 'coffee', 'jasmine']);
 };
