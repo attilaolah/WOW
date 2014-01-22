@@ -51,7 +51,13 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['js/libs/*.js', 'spec/javascripts/libs/*.js', 'js/*.js', '!js/*.min.js'],
+      src     : [
+        'node_modules/jquery/dist/jquery.js',
+        'spec/libs/*/lib/*.js',
+        '!spec/libs/*/lib/*.min.js',
+        'js/*.js',
+        '!js/*.min.js'
+      ],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'
@@ -82,12 +88,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-update-submodules');
 
   // Default and Build tasks
-  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
+  mainTasks = ['update_submodules', 'coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
   grunt.registerTask('default', mainTasks);
   grunt.registerTask('build', mainTasks.concat(['uglify']));
 
   // Travis CI task.
-  grunt.registerTask('travis', ['coffee', 'jasmine']);
+  grunt.registerTask('travis', ['update_submodules', 'coffee', 'jasmine']);
 };

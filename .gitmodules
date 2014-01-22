@@ -1,0 +1,6 @@
+[submodule "css/libs/animate.css"]
+	path = css/libs/animate.css
+	url = https://github.com/daneden/animate.css
+[submodule "spec/libs/jasmine-jquery"]
+	path = spec/libs/jasmine-jquery
+	url = https://github.com/velesin/jasmine-jquery
