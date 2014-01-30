@@ -1,42 +1,33 @@
 (function() {
   jQuery(function() {
     $.jackInTheBox = function(element, options) {
-      var scrolled,
+      var $boxes, $window, init, scrollCallback, scrollHandler, scrolled, show, visible,
         _this = this;
-      this.settings = {};
-      this.getSetting = function(key) {
-        return this.settings[key];
-      };
-      this.callSettingFunction = function(name, args) {
-        if (args == null) {
-          args = [];
-        }
-        return this.settings[name].apply(this, args);
-      };
-      this.visible = function($box) {
+      $window = $boxes = void 0;
+      visible = function($box) {
         var bottom, top, viewBottom, viewTop;
-        viewTop = _this.$window.scrollTop();
-        viewBottom = viewTop + _this.$window.height() - _this.settings.offset;
+        viewTop = $window.scrollTop();
+        viewBottom = viewTop + $window.height() - _this.settings.offset;
         top = $box.offset().top;
         bottom = top + $box.height();
         return top <= viewBottom && bottom >= viewTop;
       };
       scrolled = false;
-      this.scrollHandler = function() {
+      scrollHandler = function() {
         return scrolled = true;
       };
-      this.scrollCallback = function() {
+      scrollCallback = function() {
         if (!scrolled) {
           return;
         }
         scrolled = false;
-        return _this.show();
+        return show();
       };
-      this.show = function() {
-        return _this.$boxes = _this.$boxes.map(function(index, box) {
+      show = function() {
+        return $boxes = $boxes.map(function(index, box) {
           var $box;
           $box = $(box);
-          if (_this.visible($box)) {
+          if (visible($box)) {
             $box.css({
               visibility: 'visible'
             }).addClass(_this.settings.animateClass);
@@ -46,19 +37,19 @@
           }
         });
       };
-      this.init = function() {
+      init = function() {
         this.settings = $.extend({}, this.defaults, options);
-        this.$window = $(window);
-        this.$boxes = $("." + this.settings.boxClass).css({
+        $window = $(window);
+        $boxes = $("." + this.settings.boxClass).css({
           visibility: 'hidden'
         });
-        if (this.$boxes.length) {
-          $(window).on("scroll", this.scrollHandler);
-          setInterval(this.scrollCallback);
-          return this.show();
+        if ($boxes.length) {
+          $(window).on("scroll", scrollHandler);
+          setInterval(scrollCallback);
+          return show();
         }
       };
-      this.init();
+      init.call(this);
       return this;
     };
     $.jackInTheBox.prototype.defaults = {

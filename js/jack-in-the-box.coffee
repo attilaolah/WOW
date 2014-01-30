@@ -9,20 +9,12 @@
 jQuery ->
   $.jackInTheBox = ( element, options ) ->
     # plugin settings
-    @settings = {}
-
-    # get particular plugin setting
-    @getSetting = ( key ) ->
-      @settings[ key ]
-
-    # call one of the plugin setting functions
-    @callSettingFunction = ( name, args = [] ) ->
-      @settings[name].apply( this, args )
+    $window = $boxes = undefined
 
     # Check if box is visible
-    @visible = ($box) =>
-      viewTop    = @$window.scrollTop()
-      viewBottom = viewTop + @$window.height() - @settings.offset
+    visible = ($box) =>
+      viewTop    = $window.scrollTop()
+      viewBottom = viewTop + $window.height() - @settings.offset
       top        = $box.offset().top
       bottom     = top + $box.height()
 
@@ -32,39 +24,39 @@ jQuery ->
     scrolled = false
 
     # Fast window.scroll callback
-    @scrollHandler = =>
+    scrollHandler = =>
       scrolled = true
 
     # Show box if visible on scroll
-    @scrollCallback = =>
+    scrollCallback = =>
       return unless scrolled
       scrolled = false
-      @show()
+      show()
 
 
     # show visible elements
-    @show = =>
-      @$boxes = @$boxes.map (index, box) =>
+    show = =>
+      $boxes = $boxes.map (index, box) =>
         $box = $(box)
-        if (@visible($box))
+        if (visible($box))
           $box.css(visibility: 'visible').addClass @settings.animateClass
           null
         else $box
 
     # Set initial settings
-    @init = ->
+    init = ->
       @settings = $.extend( {}, @defaults, options )
 
-      @$window  = $(window)
-      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+      $window  = $(window)
+      $boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-      if @$boxes.length
-        $(window).on "scroll", @scrollHandler
-        setInterval @scrollCallback
-        @show()
+      if $boxes.length
+        $(window).on "scroll", scrollHandler
+        setInterval scrollCallback
+        show()
 
     # initialise the plugin
-    @init()
+    init.call @
 
     # make the plugin chainable
     this
