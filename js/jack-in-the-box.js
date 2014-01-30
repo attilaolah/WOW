@@ -3,7 +3,7 @@
     $.jackInTheBox = function(element, options) {
       var $boxes, $window, init, scrollCallback, scrollHandler, scrolled, settings, show, visible,
         _this = this;
-      $window = $boxes = settings = void 0;
+      $window = $boxes = settings = null;
       visible = function($box) {
         var bottom, top, viewBottom, viewTop;
         viewTop = $window.scrollTop();
