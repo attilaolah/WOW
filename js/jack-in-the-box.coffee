@@ -9,12 +9,12 @@
 jQuery ->
   $.jackInTheBox = ( element, options ) ->
     # plugin settings
-    $window = $boxes = undefined
+    $window = $boxes = settings = undefined
 
     # Check if box is visible
     visible = ($box) =>
       viewTop    = $window.scrollTop()
-      viewBottom = viewTop + $window.height() - @settings.offset
+      viewBottom = viewTop + $window.height() - settings.offset
       top        = $box.offset().top
       bottom     = top + $box.height()
 
@@ -39,16 +39,16 @@ jQuery ->
       $boxes = $boxes.map (index, box) =>
         $box = $(box)
         if (visible($box))
-          $box.css(visibility: 'visible').addClass @settings.animateClass
+          $box.css(visibility: 'visible').addClass settings.animateClass
           null
         else $box
 
     # Set initial settings
     init = ->
-      @settings = $.extend( {}, @defaults, options )
+      settings = $.extend( {}, @defaults, options )
 
       $window  = $(window)
-      $boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+      $boxes   = $(".#{settings.boxClass}").css(visibility: 'hidden')
 
       if $boxes.length
         $(window).on "scroll", scrollHandler

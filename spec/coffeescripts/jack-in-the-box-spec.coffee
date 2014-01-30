@@ -1,6 +1,4 @@
 describe 'jackInTheBox', ->
-  options =
-    message: 'Hello World'
 
   beforeEach ->
     loadFixtures 'fragment.html'
@@ -17,8 +15,3 @@ describe 'jackInTheBox', ->
       plugin = new $.jackInTheBox( @$element )
 
       expect( plugin.defaults ).toBeDefined()
-
-    it 'should overwrites the settings', ->
-      plugin = new $.jackInTheBox( @$element, options )
-
-      expect( plugin.settings.message ).toBe( options.message )

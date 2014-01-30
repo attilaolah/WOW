@@ -1,13 +1,13 @@
 (function() {
   jQuery(function() {
     $.jackInTheBox = function(element, options) {
-      var $boxes, $window, init, scrollCallback, scrollHandler, scrolled, show, visible,
+      var $boxes, $window, init, scrollCallback, scrollHandler, scrolled, settings, show, visible,
         _this = this;
-      $window = $boxes = void 0;
+      $window = $boxes = settings = void 0;
       visible = function($box) {
         var bottom, top, viewBottom, viewTop;
         viewTop = $window.scrollTop();
-        viewBottom = viewTop + $window.height() - _this.settings.offset;
+        viewBottom = viewTop + $window.height() - settings.offset;
         top = $box.offset().top;
         bottom = top + $box.height();
         return top <= viewBottom && bottom >= viewTop;
@@ -30,7 +30,7 @@
           if (visible($box)) {
             $box.css({
               visibility: 'visible'
-            }).addClass(_this.settings.animateClass);
+            }).addClass(settings.animateClass);
             return null;
           } else {
             return $box;
@@ -38,9 +38,9 @@
         });
       };
       init = function() {
-        this.settings = $.extend({}, this.defaults, options);
+        settings = $.extend({}, this.defaults, options);
         $window = $(window);
-        $boxes = $("." + this.settings.boxClass).css({
+        $boxes = $("." + settings.boxClass).css({
           visibility: 'hidden'
         });
         if ($boxes.length) {
