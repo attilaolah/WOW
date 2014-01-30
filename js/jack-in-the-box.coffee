@@ -9,7 +9,7 @@
 jQuery ->
   $.jackInTheBox = ( element, options ) ->
     # plugin settings
-    $window = $boxes = settings = undefined
+    $window = $boxes = settings = null
 
     # Check if box is visible
     visible = ($box) =>
