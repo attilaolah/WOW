@@ -4,7 +4,6 @@
       var scrolled,
         _this = this;
       this.settings = {};
-      this.$element = $(element);
       this.getSetting = function(key) {
         return this.settings[key];
       };

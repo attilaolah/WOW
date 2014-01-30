@@ -11,9 +11,6 @@ jQuery ->
     # plugin settings
     @settings = {}
 
-    # jQuery version of DOM element attached to the plugin
-    @$element = $ element
-
     # get particular plugin setting
     @getSetting = ( key ) ->
       @settings[ key ]
